@@ -38,11 +38,16 @@ jobs:
           python -m venv .venv
           .venv/bin/pip install -v -c ./ci-constraints-requirements.txt "./[test]" ./vectors/
 
-      - name: Run benchmarks
+      - name: Run benchmarks staging
+        uses: CodSpeedHQ/action@v2
+        with:
+          token: ${{ secrets.STAGING_CODSPEED_TOKEN }}
+          upload-url: https://api.staging.preview.codspeed.io/upload
+          run: .venv/bin/pytest --codspeed --benchmark-enable --benchmark-only ./tests/bench/ --benchmark-json=bench-pr.json --x509-limbo-root=x509-limbo/
+
+      - name: Run benchmarks prod
         uses: CodSpeedHQ/action@v2
         with:
           token: ${{ secrets.CODSPEED_TOKEN }}
-          # token: ${{ secrets.STAGING_CODSPEED_TOKEN }}
-          # upload-url: https://api.staging.preview.codspeed.io/upload
           run: .venv/bin/pytest --codspeed --benchmark-enable --benchmark-only ./tests/bench/ --benchmark-json=bench-pr.json --x509-limbo-root=x509-limbo/
 
