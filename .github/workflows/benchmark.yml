@@ -41,7 +41,8 @@ jobs:
       - name: Run benchmarks
         uses: CodSpeedHQ/action@v2
         with:
-          token: ${{ secrets.STAGING_CODSPEED_TOKEN }}
-          upload-url: https://api.staging.preview.codspeed.io/upload
+          token: ${{ secrets.CODSPEED_TOKEN }}
+          # token: ${{ secrets.STAGING_CODSPEED_TOKEN }}
+          # upload-url: https://api.staging.preview.codspeed.io/upload
           run: .venv/bin/pytest --codspeed --benchmark-enable --benchmark-only ./tests/bench/ --benchmark-json=bench-pr.json --x509-limbo-root=x509-limbo/
 
