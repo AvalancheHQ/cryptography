@@ -34,23 +34,24 @@ jobs:
           python -m venv .venv
           .venv/bin/pip install -v -c ./ci-constraints-requirements.txt "./[test]" ./vectors/
 
-      - name: Run benchmarks staging
-        uses: CodSpeedHQ/action@v2
-        with:
-          token: ${{ secrets.STAGING_CODSPEED_TOKEN }}
-          upload-url: https://api.staging.preview.codspeed.io/upload
-          run: .venv/bin/pytest --codspeed --benchmark-enable --benchmark-only ./tests/bench/ --benchmark-json=bench-pr.json --x509-limbo-root=x509-limbo/
+      # - name: Run benchmarks staging
+      #   uses: CodSpeedHQ/action@v2
+      #   with:
+      #     token: ${{ secrets.STAGING_CODSPEED_TOKEN }}
+      #     upload-url: https://api.staging.preview.codspeed.io/upload
+      #     run: .venv/bin/pytest --codspeed --benchmark-enable --benchmark-only ./tests/bench/ --benchmark-json=bench-pr.json --x509-limbo-root=x509-limbo/
 
       - name: Run benchmarks dev
         uses: CodSpeedHQ/action@v2
         with:
           token: ${{ secrets.DEV_GUILLAUME_CODSPEED_TOKEN }}
-          upload-url: https://z7worpfffi.execute-api.eu-west-1.amazonaws.com/dev/
+          upload-url: https://vpskktkxa2.execute-api.eu-west-1.amazonaws.com/upload
+
           run: .venv/bin/pytest --codspeed --benchmark-enable --benchmark-only ./tests/bench/ --benchmark-json=bench-pr.json --x509-limbo-root=x509-limbo/
 
-      - name: Run benchmarks prod
-        uses: CodSpeedHQ/action@v2
-        with:
-          token: ${{ secrets.CODSPEED_TOKEN }}
-          run: .venv/bin/pytest --codspeed --benchmark-enable --benchmark-only ./tests/bench/ --benchmark-json=bench-pr.json --x509-limbo-root=x509-limbo/
+      # - name: Run benchmarks prod
+      #   uses: CodSpeedHQ/action@v2
+      #   with:
+      #     token: ${{ secrets.CODSPEED_TOKEN }}
+      #     run: .venv/bin/pytest --codspeed --benchmark-enable --benchmark-only ./tests/bench/ --benchmark-json=bench-pr.json --x509-limbo-root=x509-limbo/
 
