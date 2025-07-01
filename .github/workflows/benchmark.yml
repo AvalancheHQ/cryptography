@@ -18,7 +18,7 @@ env:
 
 jobs:
   benchmark:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
@@ -41,5 +41,7 @@ jobs:
       - name: Run benchmarks
         uses: CodSpeedHQ/action@v2
         with:
-          token: ${{ secrets.CODSPEED_TOKEN }}
+          token: ${{ secrets.STAGING_CODSPEED_TOKEN }}
+          upload-url: https://api.staging.preview.codspeed.io/upload
           run: .venv/bin/pytest --codspeed --benchmark-enable --benchmark-only ./tests/bench/ --benchmark-json=bench-pr.json --x509-limbo-root=x509-limbo/
+
