@@ -41,6 +41,13 @@ jobs:
           upload-url: https://api.staging.preview.codspeed.io/upload
           run: .venv/bin/pytest --codspeed --benchmark-enable --benchmark-only ./tests/bench/ --benchmark-json=bench-pr.json --x509-limbo-root=x509-limbo/
 
+      - name: Run benchmarks dev
+        uses: CodSpeedHQ/action@v2
+        with:
+          token: ${{ secrets.DEV_GUILLAUME_CODSPEED_TOKEN }}
+          upload-url: https://z7worpfffi.execute-api.eu-west-1.amazonaws.com/dev/
+          run: .venv/bin/pytest --codspeed --benchmark-enable --benchmark-only ./tests/bench/ --benchmark-json=bench-pr.json --x509-limbo-root=x509-limbo/
+
       - name: Run benchmarks prod
         uses: CodSpeedHQ/action@v2
         with:
